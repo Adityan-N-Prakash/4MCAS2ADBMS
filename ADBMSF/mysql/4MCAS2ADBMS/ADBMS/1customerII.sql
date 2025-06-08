@@ -1,0 +1,15 @@
+select sum(Amount) from Borrow;
+select sum(Amount) from Deposit;
+select max(Amount) from Deposit where cust_id in(select cust_id from customer where city='Ernakulam');
+select count(city)from Branch1;
+select Branch_id,sum(Amount) from Deposit group by Branch_id;
+select Branch_id,sum(Amount) from Deposit group by Branch_id having sum(Amount)>4000;
+select c_name from customer where cust_id in(select cust_id from Deposit where Amount=(select min(Amount) from Deposit));
+select count(cust_id) from customer where city='Cherthala' and cust_id in (select cust_id from Deposit);
+select max(Amount) from Deposit where Branch_id in(select Branch_id from Branch1 where city='Alappuzha');
+select count(*) from customer where city='Ernakulam';
+select * from customer where city not in('Ernakulam','Alappuzha');
+select cust_id,c_name from customer order by c_name Desc;
+select Branch_id,count(cust_id) from Deposit group by Branch_id;
+select Branch_id,bname from Branch1 where Branch_id not in(select distinct Branch_id from Borrow);
+select count(cust_id) from Deposit where Open_date>'2016-01-01';

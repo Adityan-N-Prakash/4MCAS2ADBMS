@@ -1,0 +1,17 @@
+select cust_id,c_name from customer;
+select cust_id from Deposit where Amount>10000;
+select d.Open_date from Deposit d join customer c on d.cust_id=c.cust_id where c.c_name='Anil';
+select cust_id from Deposit where Open_date>'2016-01-01';
+select Acc_no,cust_id from Deposit where Amount between 40000 and 80000;
+select c_name from customer where c_name like 'S%';
+select c_name from customer where c_name like '_a%';
+select c_name,Acc_no,Amount from customer join Deposit on customer.cust_id=Deposit.cust_id where length(c_name)=5;
+select cust_id,Loan_no,Amount from Borrow;
+select distinct customer.cust_id,c_name from customer join Deposit on customer.cust_id=Deposit.cust_id;
+select distinct c_name from customer where cust_id in (select cust_id from Deposit) and cust_id not in (select cust_id from Borrow);
+select distinct c_name from customer where cust_id in (select cust_id from Deposit) and cust_id in (select cust_id from Borrow);
+select customer.cust_id,c_name,coalesce (Deposit.Amount,Borrow.Amount) as Amount from customer left join Deposit on customer.cust_id=Deposit.cust_id left join Borrow on customer.cust_id=Borrow.cust_id;
+select customer.cust_id,c_name,coalesce (Deposit.Amount,Borrow.Amount) as Amount from customer left join Deposit on customer.cust_id=Deposit.cust_id left join Borrow on customer.cust_id=Borrow.cust_id;
+update Deposit set Amount=Amount*1.10;
+update Deposit set Amount=Amount*1.10 where cust_id in (select cust_id from customer where city='Ernakulam');
+update customer set city='Aroor' where cust_id in (select cust_id from Borrow where Branch_id=(select Branch_id from Branch1 where bname='Aroor'));
